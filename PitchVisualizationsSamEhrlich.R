@@ -88,7 +88,7 @@ server <- function(input, output, session) {
   df_filtered <- reactive({
     
     df_filt <- cubs_ws_pitches %>%
-      filter(pitcher == input$pitcher, game_num == input$game_num)
+      filter(pitcher %in% input$pitcher, game_num %in% input$game_num)
     
     return(df_filt)
     
@@ -174,7 +174,7 @@ server <- function(input, output, session) {
   #filter df for aggregated data table
   dt_f <- reactive({
     df_filt <- cubs_ws_pitches %>%
-      filter(pitcher == input$pitcher, game_num == input$game_num) %>%
+      filter(pitcher %in% input$pitcher, game_num %in% input$game_num) %>%
       group_by(pitch_type) %>%
       summarise(Pitches_Thrown = n(),
                 Avg_Velo = mean(velo),
